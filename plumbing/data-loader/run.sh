@@ -9,6 +9,9 @@ mc mb minio/kafka-checkpoint
 mc mb minio/kafka-output
 mc mb minio/stocks
 mc mb minio/iot-telemetry-data
+
+sleep 3
+
 mc cp ./data/heart.csv minio/heart/heart.csv
 mc cp ./data/iris.csv minio/iris/iris.csv
 mc cp ./data/cities.csv minio/cities/cities.csv

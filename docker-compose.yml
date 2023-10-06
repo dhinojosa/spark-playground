@@ -9,6 +9,7 @@ services:
             - SPARK_RPC_ENCRYPTION_ENABLED=no
             - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
             - SPARK_SSL_ENABLED=no
+            - SPARK_MASTER_OPTS=-Dspark.ui.reverseProxy=true -Dspark.ui.reverseProxyUrl="https://8044-${GITPOD_WORKSPACE_ID}-${GITPOD_WORKSPACE_HOST}"
         ports:
             - 8080:8080
         networks:
@@ -110,6 +111,14 @@ services:
             - MINIO_SERVER_SECRET_KEY=minio-root-password
         depends_on:
             - minio
+        networks:
+            - spark
+    web:
+        image: nginx
+        ports:
+            - 8044:80
+        volumes:
+            - ./nginx.conf:/etc/nginx/nginx.conf
         networks:
             - spark
 volumes:
